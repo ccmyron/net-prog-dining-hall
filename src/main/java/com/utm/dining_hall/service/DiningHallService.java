@@ -4,19 +4,18 @@ import com.utm.dining_hall.model.Food;
 import com.utm.dining_hall.model.Waiter;
 import com.utm.dining_hall.util.Menu;
 import com.utm.dining_hall.model.Table;
+import com.utm.dining_hall.util.TableGenerator;
 import com.utm.dining_hall.util.WaiterGenerator;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
-
 
 public class DiningHallService {
 
     private static DiningHallService singleInstance;
     @Getter private final List<Food> menu = Menu.fillMenu();
-    private List<Table> tables = new ArrayList<>();
+    @Getter private final List<Table> tables = TableGenerator.generateTables(10);
     @Getter @Setter private List<Waiter> waiters = WaiterGenerator.generateWaiters(5);
 
     private DiningHallService() {}
@@ -32,6 +31,11 @@ public class DiningHallService {
     public void openDiningHall() {
         for (Waiter waiter : waiters) {
             Thread thread = new Thread(waiter);
+            thread.start();
+        }
+
+        for (Table table : tables) {
+            Thread thread = new Thread(table);
             thread.start();
         }
     }
