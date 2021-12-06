@@ -13,4 +13,5 @@ public class Order {
     private List<Integer> items;
     private int priority;
     private int maxWait;
+    private boolean isReady;
 }

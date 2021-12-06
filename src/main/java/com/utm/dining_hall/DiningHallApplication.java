@@ -12,6 +12,5 @@ public class DiningHallApplication {
 
         DiningHallService diningHallService = DiningHallService.getInstance();
         diningHallService.openDiningHall();
-
     }
 }

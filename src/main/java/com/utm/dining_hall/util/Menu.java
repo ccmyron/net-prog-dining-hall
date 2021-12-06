@@ -4,12 +4,13 @@ import com.utm.dining_hall.model.Food;
 import com.utm.dining_hall.service.DiningHallService;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Menu {
 
-    public static List<Food> fillMenu() {
-        List<Food> menu = new ArrayList<>();
+    public static List<Food> createMenu() {
+        List<Food> menu = new LinkedList<>();
 
         menu.add(new Food(
                 1,
