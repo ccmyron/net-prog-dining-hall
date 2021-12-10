@@ -25,7 +25,7 @@ public class DiningHallService {
 
     private DiningHallService() {
         menu = Menu.createMenu();
-        tables = TableGenerator.generateTables(1);
+        tables = TableGenerator.generateTables(3);
         waiters = WaiterGenerator.generateWaiters(1);
     }
 

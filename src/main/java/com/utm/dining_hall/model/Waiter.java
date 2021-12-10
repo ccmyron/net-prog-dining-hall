@@ -71,7 +71,7 @@ public class Waiter implements Runnable {
                             TimeUnit.SECONDS.sleep(new Random().nextInt(2) + 2);
                             fetchedOrder = Optional.ofNullable(table.getCurrentOrder());
                             fetchedOrder.ifPresent(order -> {
-                                log.info("Fetched an order a table\n Order: {}", order);
+                                log.info("Fetched an order from a table");
                                 sendOrderToKitchen(order);
                             });
                             table.setTableStatus(TableStatus.WAITING_FOR_ORDER);
