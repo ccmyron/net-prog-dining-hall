@@ -67,7 +67,6 @@ public class Waiter implements Runnable {
                 synchronized (tableList) {
                     for (Table table : tableList) {
                         if (table.getTableStatus().equals(TableStatus.WAITING_TO_MAKE_ORDER)) {
-                            log.info("Fetching the order");
                             TimeUnit.SECONDS.sleep(new Random().nextInt(2) + 2);
                             fetchedOrder = Optional.ofNullable(table.getCurrentOrder());
                             fetchedOrder.ifPresent(order -> {
@@ -81,7 +80,7 @@ public class Waiter implements Runnable {
                 }
             }
 
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(1);
         }
     }
 }

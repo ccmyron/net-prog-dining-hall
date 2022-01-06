@@ -2,6 +2,7 @@ package com.utm.dining_hall.model;
 
 import com.utm.dining_hall.service.DiningHallService;
 import com.utm.dining_hall.util.Menu;
+import com.utm.dining_hall.util.Properties;
 import com.utm.dining_hall.util.TableStatus;
 import lombok.Data;
 import lombok.Getter;
@@ -37,7 +38,6 @@ public class Table implements Runnable {
     }
 
     public static Order generateOrder() {
-
         Random rand = new Random();
         List<Integer> items = new ArrayList<>();
 
@@ -57,7 +57,7 @@ public class Table implements Runnable {
     }
 
     public int rateOrder(long time) {
-        long timeInSeconds = time / 1000;
+        long timeInSeconds = time / Properties.TIME_UNIT;
         long maxWait = currentOrder.getMaxWait();
 
         if (timeInSeconds < maxWait) {
@@ -82,7 +82,7 @@ public class Table implements Runnable {
         while (true) {
             if (this.tableStatus == TableStatus.OCCUPIED) {
                 /* Wait 5-15 seconds to make an order */
-                TimeUnit.SECONDS.sleep(new Random().nextInt(10) + 5);
+                TimeUnit.MILLISECONDS.sleep((long) new Random().nextInt((10) + 5) * Properties.TIME_UNIT);
                 currentOrder = generateOrder();
                 orderCreationTime = System.currentTimeMillis();
 
@@ -93,7 +93,7 @@ public class Table implements Runnable {
 
             if (this.tableStatus == TableStatus.RECEIVED_ORDER) {
                 log.info("Order took {} seconds to come back, rating: {}",
-                        (System.currentTimeMillis() - orderCreationTime) / 1000,
+                        (System.currentTimeMillis() - orderCreationTime) / Properties.TIME_UNIT,
                         rateOrder(System.currentTimeMillis() - orderCreationTime));
 
                 this.tableStatus = TableStatus.OCCUPIED;

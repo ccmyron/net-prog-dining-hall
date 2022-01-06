@@ -6,6 +6,7 @@ import com.utm.dining_hall.service.DiningHallService;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Menu {
 
@@ -90,7 +91,13 @@ public class Menu {
         int maxPrepTime = Integer.MIN_VALUE;
 
         for (int i : items) {
-            maxPrepTime = Math.max(maxPrepTime, DiningHallService.getInstance().getMenu().get(i).getPrepTime());
+            maxPrepTime = Math.max(maxPrepTime, DiningHallService.getInstance()
+                    .getMenu()
+                    .stream()
+                    .filter(f -> f.getId() == i)
+                    .collect(Collectors.toList())
+                    .get(0)
+                    .getPrepTime());
         }
 
         return maxPrepTime;
